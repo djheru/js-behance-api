@@ -8,7 +8,8 @@
 
 ```bash
 npm i -S \
-    chalk debug ip
+    apollo-server apollo-server-express axios chalk \
+    cors debug express graphql graphql-resolvers ip 
 
 ```
 
