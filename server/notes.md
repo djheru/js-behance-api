@@ -8,8 +8,9 @@
 
 ```bash
 npm i -S \
-    apollo-server apollo-server-express axios chalk \
-    cors debug express graphql graphql-resolvers ip 
+    apollo-datasource-rest apollo-server apollo-server-env \
+     apollo-server-express axios chalk cors debug express \
+     graphql graphql-resolvers ip 
 
 ```
 

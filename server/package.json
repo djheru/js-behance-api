@@ -13,7 +13,8 @@
     "watch": "npm-run-all clean babel:watch",
     "build": "npm-run-all clean babel",
     "serve": "DEBUG=app:* NODE_ENV=development node ./dist/index.js",
-    "start": "npm-run-all build serve"
+    "start": "npm-run-all build serve",
+    "dev": "DEBUG=app:* nodemon src/index.js --exec babel-node"
   },
   "keywords": [],
   "author": "Philip Damra",
@@ -37,7 +38,9 @@
     "sinon-chai": "^3.2.0"
   },
   "dependencies": {
+    "apollo-datasource-rest": "^0.1.5",
     "apollo-server": "^2.0.7",
+    "apollo-server-env": "^2.0.3",
     "apollo-server-express": "^2.0.6",
     "axios": "^0.18.0",
     "chalk": "^2.4.1",
