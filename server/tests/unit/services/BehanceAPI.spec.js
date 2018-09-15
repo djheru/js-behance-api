@@ -39,7 +39,7 @@ describe('(BehanceAPI Service)', () => {
       const queryTerm = 'joe';
       const page = 42;
       const expectedResponse = { users: ['joe'] };
-      const expectedParams = new URLSearchParams(`q=${queryTerm}&page=${page}&per_page=10`);
+      const expectedParams = new URLSearchParams(`q=${queryTerm}&page=${page}&per_page=24`);
       getStub.returns(Promise.resolve(expectedResponse));
 
       await behanceInstance.getProfiles(queryTerm, page);
@@ -106,7 +106,7 @@ describe('(BehanceAPI Service)', () => {
       const username = 'joe';
       const page = 42;
       const expectedResponse = { followers: ['jay'] };
-      const expectedParams = new URLSearchParams(`sort=alpha&sort_order=asc&page=${page}&per_page=10`);
+      const expectedParams = new URLSearchParams(`sort=followed&sort_order=desc&page=${page}&per_page=24`);
       getStub.returns(Promise.resolve(expectedResponse));
 
       await behanceInstance.getFollowers(username, page);
@@ -145,7 +145,7 @@ describe('(BehanceAPI Service)', () => {
       const username = 'joe';
       const page = 42;
       const expectedResponse = { following: ['jan'] };
-      const expectedParams = new URLSearchParams(`sort=alpha&sort_order=asc&page=${page}&per_page=10`);
+      const expectedParams = new URLSearchParams(`sort=followed&sort_order=desc&page=${page}&per_page=24`);
       getStub.returns(Promise.resolve(expectedResponse));
 
       await behanceInstance.getFollowing(username, page);

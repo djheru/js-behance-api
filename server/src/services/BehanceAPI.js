@@ -37,7 +37,7 @@ export class BehanceAPI extends RESTDataSource {
     try {
       this.params.set('q', queryTerm);
       this.params.set('page', page);
-      this.params.set('per_page', 10);
+      this.params.set('per_page', 24);
       const { users: profiles } = await this.retry('get', '/users', this.params);
       return profiles;
     } catch (e) {
@@ -69,10 +69,10 @@ export class BehanceAPI extends RESTDataSource {
    */
   async getFollowers(username, page = 1) {
     try {
-      this.params.set('sort', 'alpha');
-      this.params.set('sort_order', 'asc');
+      this.params.set('sort', 'followed');
+      this.params.set('sort_order', 'desc');
       this.params.set('page', page);
-      this.params.set('per_page', 10);
+      this.params.set('per_page', 24);
       const { followers } = await this.retry('get', `/users/${username}/followers`, this.params);
       return followers;
     } catch (e) {
@@ -89,10 +89,10 @@ export class BehanceAPI extends RESTDataSource {
    */
   async getFollowing(username, page = 1) {
     try {
-      this.params.set('sort', 'alpha');
-      this.params.set('sort_order', 'asc');
+      this.params.set('sort', 'followed');
+      this.params.set('sort_order', 'desc');
       this.params.set('page', page);
-      this.params.set('per_page', 10);
+      this.params.set('per_page', 24);
       const { following } = await this.retry('get', `/users/${username}/following`, this.params);
       return following;
     } catch (e) {
