@@ -115,6 +115,9 @@ failure
 
 ## How to Use
 
+The first step is to copy `./server/.env.dist` to `./server/.env` (`mv ./server/.env.dist ./server.env`) and enter a 
+Bēhance API key (e.g. `NdTKNWys9AdBhxMhXnKuxgfzmqvwkg55`). Normally I would not commit an API key, but in this case... 
+
 #### Server
 
 Invoke npm scripts from the `./server` directory
