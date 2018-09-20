@@ -4,6 +4,24 @@ export default gql`
   extend type Query {
     profile(username: String!): Profile
     profiles(queryTerm: String, page: Int): [Profile]
+    followers(username: String!, page: Int, perPage: Int): FollowConnection!
+    following(username: String!, page: Int, perPage: Int): FollowConnection!
+    projects(username: String!, page: Int, perPage: Int): ProjectConnection!
+  }
+  
+  type FollowConnection {
+    followers: [Profile!]
+    pageInfo: PageInfo
+  }
+  
+  type ProjectConnection {
+    projects: [Project!]
+    pageInfo: PageInfo
+  }
+  
+  type PageInfo {
+    page: Int!
+    perPage: Int!
   }
   
   type Profile {
@@ -21,11 +39,8 @@ export default gql`
     display_name: String
     images: [Image]
     links: [Link]
-    followers: [Profile]
-    following: [Profile]
     stats: Stats
     work_experience: [WorkExperience]
-    projects: [Project]
   }
   
   type Image {

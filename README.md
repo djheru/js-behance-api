@@ -53,8 +53,8 @@ navigated to the profile details page for that user. This page contains the foll
 - A tab interface showing the following
     - Their projects, displayed as thumbnails with a pop-up displaying the project name. When clicked, a new window
     will open to the project details page on the Bēhance site
-    - The top 20 users they follow ordered by their number of followers descending
-    - The top 20 users following them, also ordered by their number of followers descending
+    - The top 20 users they follow ordered by their number of appreciations (e.g. likes) descending
+    - The top 20 users following them, also ordered by their number of appreciations descending
         - Followers and following users contain that user's avatar, their location, and their counts of followers and 
         following
         - Clicking a follow will take you to that user's page on Bēhance

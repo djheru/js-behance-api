@@ -33,11 +33,11 @@ export class BehanceAPI extends RESTDataSource {
    * @param {Number} page
    * @returns {Promise<void>}
    */
-  async getProfiles(queryTerm, page = 1) {
+  async getProfiles(queryTerm, page = 1, perPage = 24) {
     try {
       this.params.set('q', queryTerm);
       this.params.set('page', page);
-      this.params.set('per_page', 24);
+      this.params.set('per_page', perPage);
       const { users: profiles } = await this.retry('get', '/users', this.params);
       return profiles;
     } catch (e) {
@@ -65,16 +65,18 @@ export class BehanceAPI extends RESTDataSource {
    * Get the profiles of users following the given user
    * @param {String} username
    * @param {Number} page
-   * @returns {Promise<void>}
+   * @param {Number} perPage
+   * @returns {Promise<*>}
    */
-  async getFollowers(username, page = 1) {
+  async getFollowers(username, page = 1, perPage = 24) {
     try {
-      this.params.set('sort', 'followed');
+      const pageInfo = { page, perPage };
+      this.params.set('sort', 'appreciations');
       this.params.set('sort_order', 'desc');
       this.params.set('page', page);
-      this.params.set('per_page', 24);
+      this.params.set('per_page', perPage);
       const { followers } = await this.retry('get', `/users/${username}/followers`, this.params);
-      return followers;
+      return { followers, pageInfo };
     } catch (e) {
       logger.error(e);
       throw e;
@@ -85,16 +87,18 @@ export class BehanceAPI extends RESTDataSource {
    * Get the profiles of users followed by the given user
    * @param username
    * @param {Number} page
-   * @returns {Promise<void>}
+   * @param {Number} perPage
+   * @returns {Promise<*>}
    */
-  async getFollowing(username, page = 1) {
+  async getFollowing(username, page = 1, perPage = 24) {
     try {
-      this.params.set('sort', 'followed');
+      const pageInfo = { page, perPage };
+      this.params.set('sort', 'appreciations');
       this.params.set('sort_order', 'desc');
       this.params.set('page', page);
-      this.params.set('per_page', 24);
+      this.params.set('per_page', perPage);
       const { following } = await this.retry('get', `/users/${username}/following`, this.params);
-      return following;
+      return { following, pageInfo };
     } catch (e) {
       logger.error(e);
       throw e;
@@ -119,13 +123,19 @@ export class BehanceAPI extends RESTDataSource {
   /**
    * Get the projects of a given user
    * @param username
-   * @returns {Promise<void>}
+   * @param {Number} page
+   * @param {Number} perPage
+   * @returns {Promise<*>}
    */
-  async getProjects(username) {
+  async getProjects(username, page = 1, perPage = 24) {
     try {
+      const pageInfo = { page, perPage };
       this.params.set('sort', 'published_date');
+      this.params.set('sort_order', 'desc');
+      this.params.set('page', page);
+      this.params.set('per_page', perPage);
       const { projects } = await this.retry('get', `/users/${username}/projects`, this.params);
-      return projects;
+      return { projects, pageInfo };
     } catch (e) {
       logger.error(e);
       throw e;

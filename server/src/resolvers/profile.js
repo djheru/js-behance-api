@@ -6,21 +6,21 @@ export default {
       await behanceAPI.getProfile(username),
 
     profiles: async (parent, { queryTerm, page = 1 }, { dataSources: { behanceAPI } }) =>
-      await behanceAPI.getProfiles(queryTerm, page)
+      await behanceAPI.getProfiles(queryTerm, page),
+
+    followers: async (parent, { username, page = 1, perPage = 10 }, { dataSources: { behanceAPI } }) =>
+      await behanceAPI.getFollowers(username, page, perPage),
+
+    following: async (parent, { username, page = 1, perPage = 10 }, { dataSources: { behanceAPI } }) =>
+      await behanceAPI.getFollowing(username, page, perPage),
+
+    projects: async (parent, { username, page = 1, perPage = 10 }, { dataSources: { behanceAPI } }) =>
+      await behanceAPI.getProjects(username, page, perPage)
   },
 
   Profile: {
-    followers: async ({ username, page = 1 }, args, { dataSources: { behanceAPI } }) =>
-      await behanceAPI.getFollowers(username, page),
-
-    following: async ({ username, page = 1 }, args, { dataSources: { behanceAPI } }) =>
-      await behanceAPI.getFollowing(username, page),
-
     work_experience: async ({ username }, args, { dataSources: { behanceAPI } }) =>
       await behanceAPI.getWorkExperience(username),
-
-    projects: async ({ username }, args, { dataSources: { behanceAPI } }) =>
-      await behanceAPI.getProjects(username),
 
     images: ({ images }) =>
       transformImages(images)
