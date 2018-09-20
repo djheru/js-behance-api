@@ -10,12 +10,12 @@ export default gql`
   }
   
   type FollowConnection {
-    followers: [Profile!]
+    items: [Profile!]
     pageInfo: PageInfo
   }
   
   type ProjectConnection {
-    projects: [Project!]
+    items: [Project!]
     pageInfo: PageInfo
   }
   

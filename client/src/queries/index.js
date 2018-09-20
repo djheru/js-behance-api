@@ -45,20 +45,31 @@ export const PROFILE_QUERY = gql`
         location
         organization
       }
-      projects{
-        id
-        name
-        created_on
-        published_on
-        url
-        fields
-        covers {
-          size
-          url
-        }
+    }
+  }
+  
+  fragment basicProfile on Profile {
+    id
+    display_name
+    first_name
+    last_name
+    username
+  }
+`;
+
+export const FOLLOWERS_QUERY = gql`
+  query followers($profileUsername:String!, $perPage: Int, $page:Int) {
+    followers(username: $profileUsername, perPage: $perPage, page: $page) {
+      pageInfo {
+        page
+        perPage
       }
-      followers {
-        ...basicProfile
+      items {
+        id
+        display_name
+        first_name
+        last_name
+        username
         stats {
           followers
           following
@@ -70,27 +81,57 @@ export const PROFILE_QUERY = gql`
         country 
         url
       }
-      following{
-        ...basicProfile
+    }
+  }
+`;
+
+export const FOLLOWING_QUERY = gql`
+  query following($profileUsername:String!, $perPage: Int, $page: Int) {
+    following(username: $profileUsername, perPage: $perPage, page: $page) {
+      pageInfo {
+        page
+        perPage
+      }
+      items {
+        id
+        display_name
+        first_name
+        last_name
+        username
         stats {
-          followers
           following
+          followers
         }
         images {
           url
         }
         city
-        country
+        country 
         url
       }
     }
   }
-  
-  fragment basicProfile on Profile {
-    id
-    display_name
-    first_name
-    last_name
-    username
+`;
+
+export const PROJECTS_QUERY = gql`
+  query projects($profileUsername:String!, $perPage: Int, $page: Int) {
+    projects(username: $profileUsername, perPage: $perPage, page: $page) {
+      pageInfo {
+        page
+        perPage
+      }
+      items {
+        id
+        name
+        created_on
+        published_on
+        url
+        fields
+        covers {
+          size
+          url
+        }
+      }
+    }
   }
 `;

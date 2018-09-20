@@ -12,27 +12,28 @@ import ErrorHeader from '../components/ErrorHeader';
 
 const ProfilePage = (props) => {
   const profileUsername = props.match.params.username;
-  const buildPanes = ({ projects, followers, following }) => [
-    {
+  console.log('profileUsername', profileUsername);
+  const buildPanes = (username) => [
+   {
       menuItem: 'Projects',
       render: () => (
-          <ProjectPane projects={projects} />
+          <ProjectPane profileUsername={username} />
       )
     },
     {
       menuItem: 'Following',
       render: () => (
           <FollowPane
-              follows={following}
-              heading="This user follows" />
+              type={FollowPane.FOLLOWING}
+              profileUsername={username}/>
       )
     },
     {
       menuItem: 'Followers',
       render: () => (
           <FollowPane
-              follows={followers}
-              heading="Following this user"/>
+              type={FollowPane.FOLLOWERS}
+              profileUsername={username}/>
       )
     }
   ];
@@ -58,8 +59,9 @@ const ProfilePage = (props) => {
                   </Grid.Column>
                   <Grid.Column computer={10} tablet={8} mobile={16}>
                     <Tab
+                        renderActiveOnly={true}
                         menu={{ secondary: true, pointing: true }}
-                        panes={buildPanes(profile)}/>
+                        panes={buildPanes(profileUsername)}/>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

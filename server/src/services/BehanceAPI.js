@@ -75,8 +75,8 @@ export class BehanceAPI extends RESTDataSource {
       this.params.set('sort_order', 'desc');
       this.params.set('page', page);
       this.params.set('per_page', perPage);
-      const { followers } = await this.retry('get', `/users/${username}/followers`, this.params);
-      return { followers, pageInfo };
+      const { followers: items } = await this.retry('get', `/users/${username}/followers`, this.params);
+      return { items, pageInfo };
     } catch (e) {
       logger.error(e);
       throw e;
@@ -97,8 +97,8 @@ export class BehanceAPI extends RESTDataSource {
       this.params.set('sort_order', 'desc');
       this.params.set('page', page);
       this.params.set('per_page', perPage);
-      const { following } = await this.retry('get', `/users/${username}/following`, this.params);
-      return { following, pageInfo };
+      const { following: items } = await this.retry('get', `/users/${username}/following`, this.params);
+      return { items, pageInfo };
     } catch (e) {
       logger.error(e);
       throw e;
@@ -134,8 +134,8 @@ export class BehanceAPI extends RESTDataSource {
       this.params.set('sort_order', 'desc');
       this.params.set('page', page);
       this.params.set('per_page', perPage);
-      const { projects } = await this.retry('get', `/users/${username}/projects`, this.params);
-      return { projects, pageInfo };
+      const { projects: items } = await this.retry('get', `/users/${username}/projects`, this.params);
+      return { items, pageInfo };
     } catch (e) {
       logger.error(e);
       throw e;
@@ -154,7 +154,7 @@ export class BehanceAPI extends RESTDataSource {
     for (let i = 0; i < retries; i++) {
       try {
         const response = await this[fcn](...args); // eslint-disable-line no-invalid-this
-        log(`${fcn} operation successful`);
+        log(`${fcn} ${args.join(' ')} operation successful`);
         return response;
       } catch (e) {
         log(`Caught error in retry method for ${fcn}, attempt #${i + 1}`);
