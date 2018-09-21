@@ -1,34 +1,29 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { Icon, Tab, Item, Divider } from 'semantic-ui-react';
-import { FOLLOWERS_QUERY, FOLLOWING_QUERY } from '../queries';
+import {  FOLLOWING_QUERY } from '../queries';
 import LoadingAnimation from './LoadingAnimation';
 import ErrorHeader from './ErrorHeader';
 
-const FollowPane = ({ profileUsername, type = FollowPane.FOLLOWERS }) => {
-  const query = (type === FollowPane.FOLLOWERS) ? FOLLOWERS_QUERY : FOLLOWING_QUERY;
-  const heading = (type === FollowPane.FOLLOWERS) ? 'Following this user' : 'This user follows';
-  const key = type.toLowerCase();
-  const defaultData = { [key]: [] };
+const FollowingPane = ({ profileUsername, type = FollowingPane.FOLLOWERS }) => {
+  const query = FOLLOWING_QUERY;
+  const heading = 'This user follows';
+
   return (
       <Tab.Pane attached={false}>
         <h4>{heading}</h4>
         <Divider/>
-        <Query query={query} variables={{ profileUsername, perPage: 24, page: 1 }}>
+        <Query query={query} variables={{ profileUsername, perPage: 8, page: 1 }}>
           {
-            ({ data = defaultData, loading, error }) => {
-              console.log(loading, error);
+            ({ data: { following: { items: follows = [] , pageInfo } = {} } = {}, loading, error, fetchMore }) => {
+              console.log(follows, loading, error);
               if (loading) {
                 return <LoadingAnimation/>;
               }
               if (error) {
                 return <ErrorHeader/>;
               }
-
-              //const { pageInfo = {} } = data;
-              const { items: follows, pageInfo } = (data[key]) ? data[key] : { items: [], pageInfo: {} };
               return (
-
                   <Item.Group relaxed divided link>
                     {
                       (follows.length) ?
@@ -72,7 +67,4 @@ const FollowPane = ({ profileUsername, type = FollowPane.FOLLOWERS }) => {
   );
 };
 
-FollowPane.FOLLOWERS = 'FOLLOWERS';
-FollowPane.FOLLOWING = 'FOLLOWING';
-
-export default FollowPane;
+export default FollowingPane;

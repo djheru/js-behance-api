@@ -9,7 +9,7 @@ const ProjectPane = ({ profileUsername }) => {
   return (
       <Query query={PROJECTS_QUERY} variables={{ profileUsername, perPage: 24, page: 1 }}>
         {
-          ({ data: { projects: { pageInfo, items: projects = [] } = {} } = {} } = {}, loading, error) => {
+          ({ data: { projects: { pageInfo, items: projects = [] } = {} } = {}, loading, error, fetchMore }) => {
             console.log(pageInfo, loading, error);
             if (loading) {
               return <LoadingAnimation/>;

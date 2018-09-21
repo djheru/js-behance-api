@@ -2,7 +2,8 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { Grid, Tab } from 'semantic-ui-react';
 import ProjectPane from '../components/ProjectPane';
-import FollowPane from '../components/FollowPane';
+import FollowingPane from '../components/FollowingPane';
+import FollowersPane from '../components/FollowersPane';
 import ProfileCard from '../components/ProfileCard';
 import StatsCard from '../components/StatsCard';
 import WorkExperienceCard from '../components/WorkExperienceCard';
@@ -23,16 +24,14 @@ const ProfilePage = (props) => {
     {
       menuItem: 'Following',
       render: () => (
-          <FollowPane
-              type={FollowPane.FOLLOWING}
+          <FollowingPane
               profileUsername={username}/>
       )
     },
     {
       menuItem: 'Followers',
       render: () => (
-          <FollowPane
-              type={FollowPane.FOLLOWERS}
+          <FollowersPane
               profileUsername={username}/>
       )
     }

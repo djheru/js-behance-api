@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import FollowPane from './FollowPane';
+import FollowingPane from './FollowingPane';
 import { Tab, Item } from 'semantic-ui-react';
 
-describe('FollowPane component', () => {
+describe('FollowingPane component', () => {
   const follows = [
     {
       url: 'http://example.com',
@@ -18,16 +18,16 @@ describe('FollowPane component', () => {
   const heading = 'it is a test';
 
   it('renders without crashing', () => {
-    shallow(<FollowPane/>);
+    shallow(<FollowingPane/>);
   });
 
   it('displays the supplied heading', () => {
-    const wrapper = shallow(<FollowPane heading={heading}/>);
+    const wrapper = shallow(<FollowingPane heading={heading}/>);
     expect(wrapper.contains(<h4>{heading}</h4>)).toBe(true);
   });
 
   it('renders the follows', () => {
-    const wrapper = shallow(<FollowPane heading={heading} follows={follows}/>);
+    const wrapper = shallow(<FollowingPane heading={heading} follows={follows}/>);
     expect(wrapper.find(Tab.Pane).exists()).toBe(true);
     expect(wrapper.find(Item).exists()).toBe(true);
     expect(wrapper.find(Item.Image).exists()).toBe(true);
